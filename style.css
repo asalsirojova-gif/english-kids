@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9ff;
+  color: #263238;
+  min-height: 100vh;
+}
+
+.header {
+  background: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.xp {
+  background: #fff4c7;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #dff4ff, #eee5ff);
+  border-radius: 30px;
+  padding: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.hello {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  line-height: 1.1;
+  margin: 15px 0;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #5f6b76;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  padding: 13px 22px;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.hero button {
+  margin-top: 25px;
+  background: #5b67f1;
+  color: white;
+  box-shadow: 0 8px 20px rgba(91, 103, 241, 0.25);
+}
+
+.hero-image {
+  font-size: 100px;
+  background: white;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 55px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #707b85;
+  margin-bottom: 18px;
+}
+
+.card button {
+  background: #eef0ff;
+  color: #4e59d8;
+  width: 100%;
+}
+
+.daily {
+  margin-top: 35px;
+  background: white;
+  border-radius: 24px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.daily span {
+  font-weight: bold;
+}
+
+.daily h2 {
+  margin: 8px 0;
+}
+
+.daily p {
+  color: #707b85;
+}
+
+.daily button {
+  background: #ffca3a;
+  color: #382d00;
+}
+
+.progress {
+  margin-top: 35px;
+}
+
+.progress-box {
+  background: white;
+  border-radius: 24px;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.progress-box div {
+  text-align: center;
+  padding: 15px;
+}
+
+.progress-box strong {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.progress-box span {
+  color: #707b85;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 15px;
+  color: #7b858d;
+}
+
+@media (max-width: 800px) {
+  .hero {
+    padding: 30px 22px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-image {
+    width: 150px;
+    height: 150px;
+    font-size: 65px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .header {
+    padding: 15px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  main {
+    padding: 20px 14px;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .hero-image {
+    width: 130px;
+    height: 130px;
+    font-size: 55px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card {
+    padding: 18px 12px;
+  }
+
+  .icon {
+    font-size: 42px;
+  }
+
+  .daily {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .progress-box {
+    grid-template-columns: 1fr 1fr;
+  }
+}
