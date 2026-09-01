@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Kids</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">🌈 English Kids</div>
+    <div class="xp">⭐ 0 XP</div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-text">
+        <span class="hello">👋 Hello, learner!</span>
+        <h1>Learn English<br>and Have Fun! 🎉</h1>
+        <p>Learn new words, practice grammar and play exciting games.</p>
+        <button onclick="startLearning()">Start Learning 🚀</button>
+      </div>
+
+      <div class="hero-image">
+        🧒📚
+      </div>
+    </section>
+
+
+    <h2>What do you want to learn?</h2>
+
+    <section class="cards">
+
+      <div class="card vocabulary">
+        <div class="icon">🍎</div>
+        <h3>Vocabulary</h3>
+        <p>Learn new words</p>
+        <button onclick="openSection('Vocabulary')">Learn →</button>
+      </div>
+
+      <div class="card grammar">
+        <div class="icon">📚</div>
+        <h3>Grammar</h3>
+        <p>Build correct sentences</p>
+        <button onclick="openSection('Grammar')">Learn →</button>
+      </div>
+
+      <div class="card listening">
+        <div class="icon">🎧</div>
+        <h3>Listening</h3>
+        <p>Improve your listening</p>
+        <button onclick="openSection('Listening')">Practice →</button>
+      </div>
+
+      <div class="card games">
+        <div class="icon">🎮</div>
+        <h3>Games</h3>
+        <p>Learn while playing</p>
+        <button onclick="openSection('Games')">Play →</button>
+      </div>
+
+    </section>
+
+
+    <section class="daily">
+      <div>
+        <span>🔥 Daily Challenge</span>
+        <h2>Learn 5 new words today!</h2>
+        <p>Complete today's challenge and earn XP.</p>
+      </div>
+
+      <button onclick="startChallenge()">Start Challenge</button>
+    </section>
+
+
+    <section class="progress">
+      <h2>🏆 My Progress</h2>
+
+      <div class="progress-box">
+        <div>
+          <strong>0</strong>
+          <span>Words learned</span>
+        </div>
+
+        <div>
+          <strong>0</strong>
+          <span>Lessons completed</span>
+        </div>
+
+        <div>
+          <strong>0</strong>
+          <span>Games played</span>
+        </div>
+
+        <div>
+          <strong>0</strong>
+          <span>Day streak</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>🌟 English Kids — Learn • Play • Grow</p>
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
