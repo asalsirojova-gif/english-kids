@@ -1,4 +1,4 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,139 +7,730 @@
   <title>English Kids</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6C63FF">
+  <link rel="apple-touch-icon" href="icon.png">
 </head>
 
 <body>
 
-  <header class="header">
+<header class="topbar">
 
-    <div class="logo">
-      🌈 English Kids
-    </div>
+  <div class="brand" onclick="showPage('home')">
+    <span class="brand-icon">🌈</span>
+    <span>English Kids</span>
+  </div>
 
-    <div class="xp">
-      ⭐ 0 XP
-    </div>
+  <div class="xp-box">
+    ⭐ <span id="xp">0</span> XP
+  </div>
 
-  </header>
+</header>
 
 
-  <main>
+<nav class="navbar">
 
-    <section class="hero">
+  <button onclick="showPage('home')">
+    🏠 Home
+  </button>
+
+  <button onclick="showPage('vocabulary')">
+    📚 Words
+  </button>
+
+  <button onclick="showPage('grammar')">
+    ✏️ Grammar
+  </button>
+
+  <button onclick="showPage('games')">
+    🎮 Games
+  </button>
+
+  <button onclick="showPage('stories')">
+    📖 Stories
+  </button>
+
+  <button onclick="showPage('progress')">
+    🏆 Progress
+  </button>
+
+</nav>
+
+
+<main>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+  <div class="hero">
+
+    <div class="hero-content">
+
+      <span class="welcome">
+        👋 Hello, little learner!
+      </span>
 
       <h1>
         Learn English<br>
-        and Have Fun! 🎉
+        <span>with fun! 🎉</span>
       </h1>
 
       <p>
-        Learn words, practice grammar
-        and play fun English games!
+        Learn new words, practice grammar,
+        listen, play games and become an English star!
       </p>
 
-    </section>
-
-
-    <nav class="menu">
-
-      <button onclick="showHome()">
-        🏠 Home
+      <button
+        class="main-btn"
+        onclick="showPage('vocabulary')">
+        Start Learning 🚀
       </button>
 
-      <button onclick="showVocabulary()">
-        📚 Vocabulary
-      </button>
-
-      <button onclick="showGrammar()">
-        ✏️ Grammar
-      </button>
-
-      <button onclick="showGames()">
-        🎮 Games
-      </button>
-
-      <button onclick="showLessons()">
-        📖 Lessons
-      </button>
-
-      <button onclick="showProgress()">
-        🏆 Progress
-      </button>
-
-    </nav>
+    </div>
 
 
-    <section id="app">
+    <div class="hero-art">
 
-    </section>
+      <div class="sun">☀️</div>
+      <div class="cloud">☁️</div>
+      <div class="book-character">📚</div>
+      <div class="pencil">✏️</div>
 
-  </main>
+    </div>
+
+  </div>
 
 
-  <footer>
+  <h2 class="section-title">
+    What do you want to learn?
+  </h2>
 
-    <p>
-      🌈 English Kids
+
+  <div class="home-grid">
+
+    <div
+      class="feature-card pink"
+      onclick="showPage('vocabulary')">
+
+      <div class="big-icon">🍎</div>
+
+      <h3>Vocabulary</h3>
+
+      <p>Learn new English words</p>
+
+      <span>Start →</span>
+
+    </div>
+
+
+    <div
+      class="feature-card blue"
+      onclick="showPage('grammar')">
+
+      <div class="big-icon">📝</div>
+
+      <h3>Grammar</h3>
+
+      <p>Build correct sentences</p>
+
+      <span>Practice →</span>
+
+    </div>
+
+
+    <div
+      class="feature-card green"
+      onclick="showPage('games')">
+
+      <div class="big-icon">🎮</div>
+
+      <h3>Games</h3>
+
+      <p>Learn while playing</p>
+
+      <span>Play →</span>
+
+    </div>
+
+
+    <div
+      class="feature-card yellow"
+      onclick="showPage('stories')">
+
+      <div class="big-icon">📖</div>
+
+      <h3>Stories</h3>
+
+      <p>Read simple stories</p>
+
+      <span>Read →</span>
+
+    </div>
+
+  </div>
+
+
+  <div class="challenge">
+
+    <div>
+
+      <span class="challenge-label">
+        🔥 DAILY CHALLENGE
+      </span>
+
+      <h2>
+        Learn 5 new words today!
+      </h2>
+
+      <p>
+        Complete a lesson and earn XP.
+      </p>
+
+    </div>
+
+    <button onclick="startDailyChallenge()">
+      Start Challenge
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- ================= VOCABULARY ================= -->
+
+<section id="vocabulary" class="page">
+
+  <div class="page-heading">
+
+    <span>📚</span>
+
+    <div>
+
+      <h1>Vocabulary</h1>
+
+      <p>
+        Learn useful English words with pictures.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="category-buttons">
+
+    <button onclick="loadWords('all')">
+      All
+    </button>
+
+    <button onclick="loadWords('animals')">
+      🐾 Animals
+    </button>
+
+    <button onclick="loadWords('food')">
+      🍎 Food
+    </button>
+
+    <button onclick="loadWords('school')">
+      🎒 School
+    </button>
+
+    <button onclick="loadWords('nature')">
+      🌳 Nature
+    </button>
+
+  </div>
+
+
+  <div
+    id="word-grid"
+    class="word-grid">
+  </div>
+
+</section>
+
+
+
+<!-- ================= GRAMMAR ================= -->
+
+<section id="grammar" class="page">
+
+  <div class="page-heading">
+
+    <span>✏️</span>
+
+    <div>
+
+      <h1>Grammar</h1>
+
+      <p>
+        Let's learn English grammar step by step.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="lesson-card">
+
+    <div class="lesson-icon">
+      👦
+    </div>
+
+    <h2>
+      Verb “To Be”
+    </h2>
+
+    <p class="lesson-text">
+
+      We use
+      <b>am</b>,
+      <b>is</b>
+      and
+      <b>are</b>
+      to talk about people and things.
+
     </p>
 
-    <span>
-      Learn • Play • Grow
-    </span>
 
-  </footer>
+    <div class="grammar-examples">
 
-
-  <script src="script.js"></script>
-
-</body>
-</html>
-    <section class="daily">
       <div>
-        <span>🔥 Daily Challenge</span>
-        <h2>Learn 5 new words today!</h2>
-        <p>Complete today's challenge and earn XP.</p>
+        👦 I <b>am</b> happy.
       </div>
 
-      <button onclick="startChallenge()">Start Challenge</button>
-    </section>
-
-
-    <section class="progress">
-      <h2>🏆 My Progress</h2>
-
-      <div class="progress-box">
-        <div>
-          <strong>0</strong>
-          <span>Words learned</span>
-        </div>
-
-        <div>
-          <strong>0</strong>
-          <span>Lessons completed</span>
-        </div>
-
-        <div>
-          <strong>0</strong>
-          <span>Games played</span>
-        </div>
-
-        <div>
-          <strong>0</strong>
-          <span>Day streak</span>
-        </div>
+      <div>
+        👧 She <b>is</b> happy.
       </div>
-    </section>
 
-  </main>
+      <div>
+        👨 They <b>are</b> happy.
+      </div>
+
+    </div>
+
+  </div>
 
 
-  <footer>
-    <p>🌟 English Kids — Learn • Play • Grow</p>
-  </footer>
+  <div class="quiz-card">
+
+    <div class="quiz-number">
+
+      Question
+      <span id="question-number">1</span>
+      / 5
+
+    </div>
 
 
-  <script src="script.js"></script>
+    <h2 id="quiz-question">
+      She ___ a student.
+    </h2>
+
+
+    <div
+      id="quiz-options"
+      class="quiz-options">
+    </div>
+
+
+    <div
+      id="quiz-result"
+      class="quiz-result">
+    </div>
+
+
+    <button
+      id="next-question"
+      class="next-btn"
+      onclick="nextQuestion()"
+      hidden>
+
+      Next Question →
+
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- ================= GAMES ================= -->
+
+<section id="games" class="page">
+
+  <div class="page-heading">
+
+    <span>🎮</span>
+
+    <div>
+
+      <h1>Learning Games</h1>
+
+      <p>
+        Play and learn at the same time!
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="game-card">
+
+    <div class="game-top">
+
+      <span>
+        🎯 Word Challenge
+      </span>
+
+      <span>
+        ⭐ +10 XP
+      </span>
+
+    </div>
+
+
+    <h2>
+      Which word matches this picture?
+    </h2>
+
+
+    <div
+      id="game-picture"
+      class="game-picture">
+      🐱
+    </div>
+
+
+    <div
+      id="game-options"
+      class="game-options">
+    </div>
+
+
+    <div
+      id="game-result"
+      class="quiz-result">
+    </div>
+
+
+    <button
+      id="next-game"
+      class="next-btn"
+      onclick="newGame()"
+      hidden>
+
+      Next →
+
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- ================= STORIES ================= -->
+
+<section id="stories" class="page">
+
+  <div class="page-heading">
+
+    <span>📖</span>
+
+    <div>
+
+      <h1>Little Stories</h1>
+
+      <p>
+        Read simple English stories.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="story-card">
+
+    <div class="story-picture">
+      🌳 🐦 ☀️
+    </div>
+
+
+    <h2>
+      🌞 A Beautiful Morning
+    </h2>
+
+
+    <p>
+      It is a beautiful morning.
+      The sun is shining.
+      A little bird is in the tree.
+    </p>
+
+
+    <p>
+      The bird sings a happy song.
+      A little girl looks at the bird
+      and smiles.
+    </p>
+
+
+    <div class="story-words">
+
+      <span>
+        ☀️ sun — quyosh
+      </span>
+
+      <span>
+        🐦 bird — qush
+      </span>
+
+      <span>
+        🌳 tree — daraxt
+      </span>
+
+      <span>
+        😊 smile — tabassum
+      </span>
+
+    </div>
+
+
+    <button
+      class="main-btn"
+      onclick="readStory()">
+
+      🔊 Listen to Story
+
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- ================= PROGRESS ================= -->
+
+<section id="progress" class="page">
+
+  <div class="page-heading">
+
+    <span>🏆</span>
+
+    <div>
+
+      <h1>My Progress</h1>
+
+      <p>
+        Look how much you have learned!
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="progress-hero">
+
+    <div class="trophy">
+      🏆
+    </div>
+
+    <h2>
+      You are doing great!
+    </h2>
+
+    <p>
+      Keep learning every day.
+    </p>
+
+
+    <div class="level">
+
+      Level
+      <span id="level">1</span>
+
+    </div>
+
+  </div>
+
+
+  <div class="stats">
+
+
+    <div class="stat">
+
+      <strong id="words-count">
+        0
+      </strong>
+
+      <span>
+        📚 Words learned
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong id="lessons-count">
+        0
+      </strong>
+
+      <span>
+        ✏️ Lessons
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong id="games-count">
+        0
+      </strong>
+
+      <span>
+        🎮 Games
+      </span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong id="streak-count">
+        0
+      </strong>
+
+      <span>
+        🔥 Day streak
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="achievement">
+
+    <h2>
+      🏅 Achievements
+    </h2>
+
+
+    <div class="badges">
+
+
+      <div class="badge">
+
+        🌱
+
+        <span>
+          First Step
+        </span>
+
+      </div>
+
+
+      <div class="badge">
+
+        📚
+
+        <span>
+          Word Learner
+        </span>
+
+      </div>
+
+
+      <div class="badge">
+
+        🎮
+
+        <span>
+          Game Star
+        </span>
+
+      </div>
+
+
+      <div class="badge">
+
+        🏆
+
+        <span>
+          English Star
+        </span>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+
+<footer>
+
+  <p>
+    🌈 English Kids
+  </p>
+
+  <span>
+    Learn • Play • Grow
+  </span>
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+
+<!-- PWA Service Worker -->
+
+<script>
+
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+      navigator.serviceWorker
+        .register("./sw.js")
+        .then(() => {
+          console.log("English Kids PWA ready!");
+        })
+        .catch(error => {
+          console.log(
+            "Service Worker error:",
+            error
+          );
+        });
+
+    });
+
+  }
+
+</script>
+
 
 </body>
 </html>
