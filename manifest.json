@@ -1,22 +1,25 @@
 {
   "name": "English Kids App",
-  "short_name": "EnglishKids",
+  "short_name": "English Kids",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#FFF9F0",
   "theme_color": "#6C63FF",
-  "description": "Fun English learning app for kids",
+  "description": "Fun and interactive English learning app for kids.",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./icon.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "./icon.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
