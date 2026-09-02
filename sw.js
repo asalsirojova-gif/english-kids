@@ -1,4 +1,4 @@
-const CACHE_NAME = "english-kids-v1";
+const CACHE_NAME = "english-kids-v2";
 
 const FILES_TO_CACHE = [
   "./",
@@ -6,7 +6,8 @@ const FILES_TO_CACHE = [
   "./style.css",
   "./script.js",
   "./manifest.json",
-  "./icon.png"
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {
@@ -35,8 +36,8 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+    caches.match(event.request).then(cachedResponse => {
+      return cachedResponse || fetch(event.request);
     })
   );
 });
