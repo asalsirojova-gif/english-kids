@@ -1,70 +1,99 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>English Kids</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <header class="header">
-    <div class="logo">🌈 English Kids</div>
-    <div class="xp">⭐ 0 XP</div>
+
+    <div class="logo">
+      🌈 English Kids
+    </div>
+
+    <div class="xp">
+      ⭐ 0 XP
+    </div>
+
   </header>
+
 
   <main>
 
     <section class="hero">
-      <div class="hero-text">
-        <span class="hello">👋 Hello, learner!</span>
-        <h1>Learn English<br>and Have Fun! 🎉</h1>
-        <p>Learn new words, practice grammar and play exciting games.</p>
-        <button onclick="startLearning()">Start Learning 🚀</button>
-      </div>
 
-      <div class="hero-image">
-        🧒📚
-      </div>
-    </section>
+      <h1>
+        Learn English<br>
+        and Have Fun! 🎉
+      </h1>
 
-
-    <h2>What do you want to learn?</h2>
-
-    <section class="cards">
-
-      <div class="card vocabulary">
-        <div class="icon">🍎</div>
-        <h3>Vocabulary</h3>
-        <p>Learn new words</p>
-        <button onclick="openSection('Vocabulary')">Learn →</button>
-      </div>
-
-      <div class="card grammar">
-        <div class="icon">📚</div>
-        <h3>Grammar</h3>
-        <p>Build correct sentences</p>
-        <button onclick="openSection('Grammar')">Learn →</button>
-      </div>
-
-      <div class="card listening">
-        <div class="icon">🎧</div>
-        <h3>Listening</h3>
-        <p>Improve your listening</p>
-        <button onclick="openSection('Listening')">Practice →</button>
-      </div>
-
-      <div class="card games">
-        <div class="icon">🎮</div>
-        <h3>Games</h3>
-        <p>Learn while playing</p>
-        <button onclick="openSection('Games')">Play →</button>
-      </div>
+      <p>
+        Learn words, practice grammar
+        and play fun English games!
+      </p>
 
     </section>
 
 
+    <nav class="menu">
+
+      <button onclick="showHome()">
+        🏠 Home
+      </button>
+
+      <button onclick="showVocabulary()">
+        📚 Vocabulary
+      </button>
+
+      <button onclick="showGrammar()">
+        ✏️ Grammar
+      </button>
+
+      <button onclick="showGames()">
+        🎮 Games
+      </button>
+
+      <button onclick="showLessons()">
+        📖 Lessons
+      </button>
+
+      <button onclick="showProgress()">
+        🏆 Progress
+      </button>
+
+    </nav>
+
+
+    <section id="app">
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <p>
+      🌈 English Kids
+    </p>
+
+    <span>
+      Learn • Play • Grow
+    </span>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
     <section class="daily">
       <div>
         <span>🔥 Daily Challenge</span>
