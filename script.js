@@ -1,1137 +1,1470 @@
-// ======================================
-// 🌈 ENGLISH KIDS
-// Interactive Learning App
-// ======================================
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-let xp = Number(localStorage.getItem("englishKidsXP")) || 0;
-let correctAnswers =
-  Number(localStorage.getItem("correctAnswers")) || 0;
+:root {
+  --primary: #6c63ff;
+  --primary-dark: #5148d9;
+  --secondary: #8f88ff;
 
-let wordsLearned =
-  Number(localStorage.getItem("wordsLearned")) || 0;
+  --background: #f7f8ff;
+  --card: #ffffff;
 
-let lessonsCompleted =
-  Number(localStorage.getItem("lessonsCompleted")) || 0;
+  --text: #20243a;
+  --muted: #737891;
 
-let gamesPlayed =
-  Number(localStorage.getItem("gamesPlayed")) || 0;
+  --green: #27ae60;
+  --green-light: #e2f8ea;
 
-let streak =
-  Number(localStorage.getItem("streak")) || 0;
+  --red: #e74c3c;
+  --red-light: #ffe5e2;
 
+  --yellow: #fff3cd;
+  --yellow-text: #946b00;
 
-// ======================================
-// DATA
-// ======================================
+  --shadow: 0 12px 35px rgba(48, 54, 100, 0.10);
 
-const vocabulary = [
-
-  {
-    word: "Apple",
-    translation: "Olma",
-    image: "🍎",
-    category: "food",
-    options: ["Olma", "Kitob", "Mushuk", "Uy"]
-  },
-
-  {
-    word: "Cat",
-    translation: "Mushuk",
-    image: "🐱",
-    category: "animals",
-    options: ["It", "Mushuk", "Qush", "Ot"]
-  },
-
-  {
-    word: "Dog",
-    translation: "It",
-    image: "🐶",
-    category: "animals",
-    options: ["Mushuk", "It", "Sigir", "Baliq"]
-  },
-
-  {
-    word: "Book",
-    translation: "Kitob",
-    image: "📚",
-    category: "school",
-    options: ["Qalam", "Stol", "Kitob", "Sumka"]
-  },
-
-  {
-    word: "Sun",
-    translation: "Quyosh",
-    image: "☀️",
-    category: "nature",
-    options: ["Oy", "Bulut", "Quyosh", "Yulduz"]
-  },
-
-  {
-    word: "House",
-    translation: "Uy",
-    image: "🏠",
-    category: "all",
-    options: ["Maktab", "Uy", "Bog‘", "Do‘kon"]
-  },
-
-  {
-    word: "Car",
-    translation: "Mashina",
-    image: "🚗",
-    category: "all",
-    options: ["Velosiped", "Mashina", "Poyezd", "Samolyot"]
-  },
-
-  {
-    word: "Fish",
-    translation: "Baliq",
-    image: "🐟",
-    category: "animals",
-    options: ["Baliq", "Qush", "Mushuk", "Ot"]
-  }
-
-];
-
-
-const grammar = [
-
-  {
-    question: "I ___ a student.",
-    options: ["am", "is", "are"],
-    answer: "am"
-  },
-
-  {
-    question: "She ___ happy.",
-    options: ["am", "is", "are"],
-    answer: "is"
-  },
-
-  {
-    question: "They ___ friends.",
-    options: ["am", "is", "are"],
-    answer: "are"
-  },
-
-  {
-    question: "He ___ a teacher.",
-    options: ["am", "is", "are"],
-    answer: "is"
-  },
-
-  {
-    question: "We ___ ready.",
-    options: ["am", "is", "are"],
-    answer: "are"
-  }
-
-];
-
-
-let currentVocabulary = 0;
-let currentGrammar = 0;
-
-let currentGame = 0;
-
-
-// ======================================
-// HELPERS
-// ======================================
-
-function getApp() {
-  return document.getElementById("app");
+  --radius: 24px;
 }
 
 
-function saveData() {
+/* ==============================
+   BODY
+============================== */
 
-  localStorage.setItem(
-    "englishKidsXP",
-    xp
-  );
-
-  localStorage.setItem(
-    "correctAnswers",
-    correctAnswers
-  );
-
-  localStorage.setItem(
-    "wordsLearned",
-    wordsLearned
-  );
-
-  localStorage.setItem(
-    "lessonsCompleted",
-    lessonsCompleted
-  );
-
-  localStorage.setItem(
-    "gamesPlayed",
-    gamesPlayed
-  );
-
-  localStorage.setItem(
-    "streak",
-    streak
-  );
-
+body {
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
 }
 
 
-function updateXP() {
+/* ==============================
+   TOP BAR
+============================== */
 
-  const xpElement =
-    document.getElementById("xp");
+.topbar {
+  width: 100%;
+  background: white;
 
-  if (xpElement) {
-    xpElement.textContent = xp;
-  }
+  padding: 16px 25px;
 
-  saveData();
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
 }
 
 
-function showFeedback(elementId, message, type) {
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-  const element =
-    document.getElementById(elementId);
+  font-size: 23px;
+  font-weight: 800;
 
-  if (!element) return;
+  color: var(--primary);
 
-  element.textContent = message;
-
-  element.className =
-    "quiz-result " + type;
-
+  cursor: pointer;
 }
 
 
-function speak(text) {
-
-  if ("speechSynthesis" in window) {
-
-    window.speechSynthesis.cancel();
-
-    const speech =
-      new SpeechSynthesisUtterance(text);
-
-    speech.lang = "en-US";
-    speech.rate = 0.85;
-
-    window.speechSynthesis.speak(speech);
-
-  }
-
+.brand-icon {
+  font-size: 28px;
 }
 
 
-// ======================================
-// PAGE SYSTEM
-// ======================================
+.xp-box {
+  background: var(--yellow);
 
-function showPage(pageName) {
+  color: var(--yellow-text);
 
-  const pages =
-    document.querySelectorAll(".page");
+  padding: 10px 16px;
 
-  pages.forEach(page => {
-    page.classList.remove("active");
-  });
+  border-radius: 30px;
 
-
-  const page =
-    document.getElementById(pageName);
-
-  if (page) {
-    page.classList.add("active");
-  }
-
-
-  if (pageName === "vocabulary") {
-    loadWords("all");
-  }
-
-  if (pageName === "grammar") {
-    renderGrammar();
-  }
-
-  if (pageName === "games") {
-    newGame();
-  }
-
-  if (pageName === "progress") {
-    updateProgressPage();
-  }
-
+  font-weight: 800;
 }
 
 
-// ======================================
-// HOME
-// ======================================
+/* ==============================
+   NAVIGATION
+============================== */
 
-function showHome() {
-  showPage("home");
+.navbar {
+  max-width: 1100px;
+
+  margin: 20px auto 0;
+
+  padding: 0 20px;
+
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 10px;
 }
 
 
-// ======================================
-// VOCABULARY
-// ======================================
+.navbar button {
+  border: none;
 
-function loadWords(category = "all") {
+  background: white;
 
-  const grid =
-    document.getElementById("word-grid");
+  padding: 14px 8px;
 
-  if (!grid) return;
+  border-radius: 16px;
 
+  cursor: pointer;
 
-  let words = vocabulary;
+  font-size: 14px;
 
-  if (category !== "all") {
+  font-weight: 700;
 
-    words =
-      vocabulary.filter(
-        item =>
-          item.category === category
-      );
+  color: var(--text);
 
-  }
+  box-shadow: var(--shadow);
 
-
-  grid.innerHTML = words.map((item, index) => `
-
-    <div class="word-card">
-
-      <div class="word-picture">
-        ${item.image}
-      </div>
-
-      <h2>
-        ${item.word}
-      </h2>
-
-      <p>
-        ${item.translation}
-      </p>
-
-      <button
-        class="primary-btn"
-        onclick="speak('${item.word}')">
-
-        🔊 Listen
-
-      </button>
-
-    </div>
-
-  `).join("");
-
+  transition: 0.2s;
 }
 
 
-function showVocabulary() {
-  showPage("vocabulary");
+.navbar button:hover {
+  transform: translateY(-3px);
+
+  color: var(--primary);
 }
 
 
-// ======================================
-// GRAMMAR
-// ======================================
+.navbar button:active {
+  transform: scale(0.97);
+}
 
-function renderGrammar() {
 
-  const questionNumber =
-    document.getElementById(
-      "question-number"
+/* ==============================
+   MAIN
+============================== */
+
+main {
+  max-width: 1100px;
+
+  margin: auto;
+
+  padding: 25px 20px 60px;
+}
+
+
+/* ==============================
+   PAGES
+============================== */
+
+.page {
+  display: none;
+}
+
+
+.page.active {
+  display: block;
+}
+
+
+/* ==============================
+   HERO
+============================== */
+
+.hero {
+  min-height: 330px;
+
+  margin-bottom: 30px;
+
+  padding: 40px;
+
+  border-radius: 32px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #625ff3,
+      #8c88ff
     );
 
-  const question =
-    document.getElementById(
-      "quiz-question"
-    );
+  box-shadow: var(--shadow);
 
-  const options =
-    document.getElementById(
-      "quiz-options"
-    );
+  display: flex;
 
-  const result =
-    document.getElementById(
-      "quiz-result"
-    );
+  justify-content: space-between;
 
-  const next =
-    document.getElementById(
-      "next-question"
-    );
+  align-items: center;
+
+  overflow: hidden;
+}
 
 
-  if (!question || !options) return;
+.hero-content {
+  max-width: 600px;
+}
 
 
-  const item =
-    grammar[currentGrammar];
+.welcome {
+  display: inline-block;
+
+  background: rgba(255,255,255,0.18);
+
+  padding: 8px 14px;
+
+  border-radius: 30px;
+
+  margin-bottom: 15px;
+
+  font-weight: 700;
+}
 
 
-  if (questionNumber) {
-    questionNumber.textContent =
-      currentGrammar + 1;
+.hero h1 {
+  font-size: 42px;
+
+  line-height: 1.1;
+
+  margin-bottom: 15px;
+}
+
+
+.hero h1 span {
+  color: #fff5a8;
+}
+
+
+.hero p {
+  font-size: 17px;
+
+  line-height: 1.6;
+
+  opacity: 0.95;
+
+  margin-bottom: 25px;
+}
+
+
+/* ==============================
+   HERO ART
+============================== */
+
+.hero-art {
+  width: 280px;
+  height: 230px;
+
+  position: relative;
+}
+
+
+.sun {
+  position: absolute;
+
+  top: 0;
+  right: 20px;
+
+  font-size: 65px;
+
+  animation: float 3s ease-in-out infinite;
+}
+
+
+.cloud {
+  position: absolute;
+
+  top: 65px;
+  left: 10px;
+
+  font-size: 60px;
+}
+
+
+.book-character {
+  position: absolute;
+
+  bottom: 0;
+  left: 65px;
+
+  font-size: 100px;
+
+  animation: bounce 2.5s ease-in-out infinite;
+}
+
+
+.pencil {
+  position: absolute;
+
+  bottom: 5px;
+  right: 20px;
+
+  font-size: 70px;
+
+  transform: rotate(-20deg);
+}
+
+
+@keyframes float {
+
+  0%, 100% {
+    transform: translateY(0);
   }
 
-
-  question.textContent =
-    item.question;
-
-
-  options.innerHTML =
-    item.options.map(option => `
-
-      <button
-        class="option"
-        onclick="checkGrammar('${option}')">
-
-        ${option}
-
-      </button>
-
-    `).join("");
-
-
-  if (result) {
-    result.textContent = "";
-    result.className = "quiz-result";
-  }
-
-
-  if (next) {
-    next.hidden = true;
+  50% {
+    transform: translateY(-12px);
   }
 
 }
 
 
-function checkGrammar(answer) {
+@keyframes bounce {
 
-  const correct =
-    grammar[currentGrammar].answer;
+  0%, 100% {
+    transform: translateY(0);
+  }
 
+  50% {
+    transform: translateY(-8px);
+  }
 
-  const buttons =
-    document.querySelectorAll(
-      "#quiz-options .option"
-    );
-
-
-  buttons.forEach(button => {
-
-    button.disabled = true;
+}
 
 
-    if (
-      button.textContent.trim()
-      === correct
-    ) {
+/* ==============================
+   MAIN BUTTON
+============================== */
 
-      button.classList.add("correct");
+.main-btn,
+.primary-btn,
+.challenge button,
+.next-btn {
+  border: none;
+
+  background: var(--primary);
+
+  color: white;
+
+  padding: 13px 21px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+
+.main-btn:hover,
+.primary-btn:hover,
+.challenge button:hover,
+.next-btn:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-2px);
+}
+
+
+.main-btn {
+  background: white;
+
+  color: var(--primary);
+}
+
+
+.main-btn:hover {
+  background: #f5f4ff;
+}
+
+
+/* ==============================
+   SECTION TITLE
+============================== */
+
+.section-title {
+  margin-bottom: 22px;
+}
+
+
+.section-title h2 {
+  font-size: 28px;
+
+  margin-bottom: 6px;
+}
+
+
+.section-title p {
+  color: var(--muted);
+
+  line-height: 1.5;
+}
+
+
+/* ==============================
+   HOME GRID
+============================== */
+
+.home-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+
+.feature-card {
+  background: white;
+
+  padding: 22px;
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  border: 2px solid transparent;
+}
+
+
+.feature-card:hover {
+  transform: translateY(-6px);
+
+  border-color: var(--primary);
+}
+
+
+.feature-card .big-icon {
+  font-size: 55px;
+
+  margin-bottom: 12px;
+}
+
+
+.feature-card h3 {
+  margin-bottom: 7px;
+}
+
+
+.feature-card p {
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.4;
+
+  margin-bottom: 12px;
+}
+
+
+.feature-card span {
+  color: var(--primary);
+
+  font-weight: 800;
+}
+
+
+.pink {
+  background: #fff2f5;
+}
+
+
+.blue {
+  background: #f0f4ff;
+}
+
+
+.green {
+  background: #effbf4;
+}
+
+
+.yellow {
+  background: #fff9e8;
+}
+
+
+/* ==============================
+   DAILY CHALLENGE
+============================== */
+
+.challenge {
+  background: white;
+
+  padding: 25px;
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+.challenge-label {
+  color: var(--red);
+
+  font-size: 13px;
+
+  font-weight: 900;
+}
+
+
+.challenge h2 {
+  margin: 7px 0;
+}
+
+
+.challenge p {
+  color: var(--muted);
+}
+
+
+/* ==============================
+   PAGE HEADING
+============================== */
+
+.page-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 25px;
+}
+
+
+.page-heading > span {
+  font-size: 48px;
+}
+
+
+.page-heading h1 {
+  font-size: 32px;
+
+  margin-bottom: 5px;
+}
+
+
+.page-heading p {
+  color: var(--muted);
+}
+
+
+/* ==============================
+   CATEGORY BUTTONS
+============================== */
+
+.category-buttons {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 25px;
+}
+
+
+.category-buttons button {
+  border: 2px solid #e4e5f2;
+
+  background: white;
+
+  padding: 10px 16px;
+
+  border-radius: 30px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+
+.category-buttons button:hover {
+  border-color: var(--primary);
+
+  color: var(--primary);
+}
+
+
+/* ==============================
+   WORD GRID
+============================== */
+
+.word-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+}
+
+
+.word-grid .word-card {
+  max-width: none;
+}
+
+
+.word-card {
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 28px;
+
+  text-align: center;
+
+  box-shadow: var(--shadow);
+
+  margin: auto;
+}
+
+
+.word-picture {
+  font-size: 85px;
+
+  margin-bottom: 15px;
+}
+
+
+.word-card h2 {
+  margin-bottom: 10px;
+}
+
+
+.word-card > p {
+  color: var(--muted);
+
+  font-size: 18px;
+
+  margin-bottom: 18px;
+}
+
+
+.word {
+  font-size: 40px;
+
+  font-weight: 800;
+
+  color: var(--primary);
+}
+
+
+.translation {
+  font-size: 20px;
+
+  color: var(--muted);
+
+  margin: 10px 0 25px;
+}
+
+
+/* ==============================
+   OPTIONS
+============================== */
+
+.options,
+.quiz-options,
+.game-options {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+
+.option {
+  padding: 15px;
+
+  border: 2px solid #e4e5f2;
+
+  background: white;
+
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+
+.option:hover:not(:disabled) {
+  border-color: var(--primary);
+
+  transform: translateY(-2px);
+}
+
+
+.option:disabled {
+  cursor: default;
+}
+
+
+.option.correct {
+  background: var(--green-light);
+
+  border-color: var(--green);
+
+  color: #187a40;
+}
+
+
+.option.wrong {
+  background: var(--red-light);
+
+  border-color: var(--red);
+
+  color: #b52d21;
+}
+
+
+/* ==============================
+   FEEDBACK
+============================== */
+
+.quiz-result {
+  min-height: 32px;
+
+  margin-top: 18px;
+
+  padding: 8px;
+
+  border-radius: 12px;
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+.quiz-result.success {
+  background: var(--green-light);
+
+  color: #187a40;
+}
+
+
+.quiz-result.error {
+  background: var(--red-light);
+
+  color: #b52d21;
+}
+
+
+/* ==============================
+   GRAMMAR LESSON
+============================== */
+
+.lesson-card {
+  background: white;
+
+  padding: 30px;
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  margin-bottom: 22px;
+
+  text-align: center;
+}
+
+
+.lesson-icon {
+  font-size: 70px;
+
+  margin-bottom: 10px;
+}
+
+
+.lesson-card h2 {
+  margin-bottom: 10px;
+}
+
+
+.lesson-text {
+  color: var(--muted);
+
+  line-height: 1.6;
+
+  margin-bottom: 20px;
+}
+
+
+.grammar-examples {
+  display: grid;
+
+  gap: 10px;
+}
+
+
+.grammar-examples div {
+  background: #f5f5ff;
+
+  padding: 13px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ==============================
+   QUIZ
+============================== */
+
+.quiz-card,
+.question-box {
+  max-width: 700px;
+
+  margin: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 25px;
+
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+
+.quiz-number {
+  color: var(--muted);
+
+  font-weight: 700;
+
+  margin-bottom: 15px;
+}
+
+
+.quiz-card h2,
+.question {
+  font-size: 25px;
+
+  margin-bottom: 25px;
+}
+
+
+.next-btn {
+  margin-top: 18px;
+}
+
+
+/* ==============================
+   GAMES
+============================== */
+
+.game-card {
+  max-width: 700px;
+
+  margin: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 28px;
+
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+
+.game-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+  color: var(--primary);
+
+  font-weight: 800;
+}
+
+
+.game-card h2 {
+  margin-bottom: 20px;
+}
+
+
+.game-picture {
+  width: 170px;
+  height: 170px;
+
+  margin: 0 auto 25px;
+
+  border-radius: 30px;
+
+  background: linear-gradient(
+    135deg,
+    #eef0ff,
+    #fff4dd
+  );
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 95px;
+
+  box-shadow: inset 0 0 20px
+    rgba(0,0,0,0.04);
+}
+
+
+/* ==============================
+   STORIES
+============================== */
+
+.story-card {
+  max-width: 750px;
+
+  margin: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 28px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.story-picture {
+  background: #eff8e9;
+
+  border-radius: 22px;
+
+  padding: 35px;
+
+  text-align: center;
+
+  font-size: 70px;
+
+  margin-bottom: 25px;
+}
+
+
+.story-card h2 {
+  margin-bottom: 15px;
+}
+
+
+.story-card p {
+  color: var(--muted);
+
+  line-height: 1.7;
+
+  margin-bottom: 15px;
+
+  font-size: 17px;
+}
+
+
+.story-words {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin: 20px 0 25px;
+}
+
+
+.story-words span {
+  background: #f5f5ff;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ==============================
+   PROGRESS
+============================== */
+
+.progress-hero {
+  background: linear-gradient(
+    135deg,
+    #625ff3,
+    #8c88ff
+  );
+
+  color: white;
+
+  text-align: center;
+
+  padding: 35px;
+
+  border-radius: 28px;
+
+  box-shadow: var(--shadow);
+
+  margin-bottom: 22px;
+}
+
+
+.trophy {
+  font-size: 75px;
+
+  margin-bottom: 10px;
+}
+
+
+.progress-hero h2 {
+  margin-bottom: 8px;
+}
+
+
+.level {
+  display: inline-block;
+
+  margin-top: 15px;
+
+  padding: 10px 18px;
+
+  background: rgba(255,255,255,0.18);
+
+  border-radius: 30px;
+
+  font-weight: 800;
+}
+
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+
+  margin-bottom: 22px;
+}
+
+
+.stat {
+  background: white;
+
+  padding: 22px;
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+
+.stat strong {
+  display: block;
+
+  font-size: 30px;
+
+  color: var(--primary);
+
+  margin-bottom: 7px;
+}
+
+
+.stat span {
+  color: var(--muted);
+
+  font-size: 14px;
+}
+
+
+.achievement {
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 25px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.achievement h2 {
+  margin-bottom: 20px;
+}
+
+
+.badges {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+}
+
+
+.badge {
+  background: #f7f7ff;
+
+  padding: 20px 10px;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  font-size: 38px;
+}
+
+
+.badge span {
+  display: block;
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: var(--muted);
+}
+
+
+/* ==============================
+   FOOTER
+============================== */
+
+footer {
+  text-align: center;
+
+  padding: 30px;
+
+  color: var(--muted);
+}
+
+
+footer p {
+  font-size: 20px;
+
+  font-weight: 800;
+
+  color: var(--primary);
+
+  margin-bottom: 5px;
+}
+
+
+/* ==============================
+   TABLET
+============================== */
+
+@media (max-width: 900px) {
+
+  .navbar {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+
+  .home-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .word-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .badges {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .hero-art {
+    width: 220px;
+  }
+
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media (max-width: 600px) {
+
+  .topbar {
+    padding: 13px 14px;
+  }
+
+
+  .brand {
+    font-size: 19px;
+  }
+
+
+  .brand-icon {
+    font-size: 23px;
+  }
+
+
+  .xp-box {
+    padding: 8px 11px;
+
+    font-size: 13px;
+  }
+
+
+  .navbar {
+    padding: 0 14px;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 8px;
+  }
+
+
+  .navbar button {
+    padding: 12px 5px;
+
+    font-size: 13px;
+  }
+
+
+  main {
+    padding: 20px 14px 45px;
+  }
+
+
+  .hero {
+    padding: 25px;
+
+    min-height: auto;
+
+    display: block;
+  }
+
+
+  .hero h1 {
+    font-size: 31px;
+  }
+
+
+  .hero p {
+    font-size: 15px;
+  }
+
+
+  .hero-art {
+    width: 100%;
+
+    height: 150px;
+
+    margin-top: 20px;
+  }
+
+
+  .book-character {
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 75px;
+  }
+
+
+  .book-character {
+    animation: none;
+  }
+
+
+  .sun {
+    font-size: 45px;
+
+    right: 10%;
+  }
+
+
+  .cloud {
+    font-size: 45px;
+
+    left: 5%;
+  }
+
+
+  .pencil {
+    font-size: 50px;
+
+    right: 5%;
+  }
+
+
+  .home-grid {
+    grid-template-columns: 1fr;
+
+    gap: 13px;
+  }
+
+
+  .challenge {
+    display: block;
+
+    padding: 20px;
+  }
+
+
+  .challenge button {
+    margin-top: 15px;
+
+    width: 100%;
+  }
+
+
+  .page-heading h1 {
+    font-size: 25px;
+  }
+
+
+  .page-heading > span {
+    font-size: 38px;
+  }
+
+
+  .word-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .word-card {
+    padding: 25px 18px;
+  }
+
+
+  .word {
+    font-size: 32px;
+  }
+
+
+  .word-picture {
+    font-size: 75px;
+  }
+
+
+  .options,
+  .quiz-options,
+  .game-options {
+    grid-template-columns: 1fr;
+  }
+
+
+  .quiz-card,
+  .question-box,
+  .game-card,
+  .story-card {
+    padding: 22px 16px;
+  }
+
+
+  .game-picture {
+    width: 145px;
+    height: 145px;
+
+    font-size: 78px;
+  }
+
+
+  .story-words {
+    grid-template-columns: 1fr;
+  }
+
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+
+  .stat {
+    padding: 18px 8px;
+  }
+
+
+  .stat strong {
+    font-size: 25px;
+  }
+
+
+  .badges {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+
+  .badge {
+    padding: 15px 5px;
+
+    font-size: 30px;
+  }
 
     }
-
-  });
-
-
-  if (answer === correct) {
-
-    xp += 15;
-    correctAnswers++;
-
-    showFeedback(
-      "quiz-result",
-      "🎉 Correct! +15 XP",
-      "success"
-    );
-
-    updateXP();
-
-    const next =
-      document.getElementById(
-        "next-question"
-      );
-
-    if (next) {
-      next.hidden = false;
-    }
-
-  } else {
-
-    buttons.forEach(button => {
-
-      if (
-        button.textContent.trim()
-        === answer
-      ) {
-
-        button.classList.add("wrong");
-
-      }
-
-    });
-
-
-    showFeedback(
-      "quiz-result",
-      "🙂 Not quite. Try again!",
-      "error"
-    );
-
-
-    const next =
-      document.getElementById(
-        "next-question"
-      );
-
-    if (next) {
-      next.hidden = false;
-    }
-
-  }
-
-}
-
-
-function nextQuestion() {
-  nextGrammar();
-}
-
-
-function nextGrammar() {
-
-  currentGrammar++;
-
-
-  if (
-    currentGrammar >= grammar.length
-  ) {
-
-    currentGrammar = 0;
-
-    lessonsCompleted++;
-
-    saveData();
-
-
-    const app = getApp();
-
-    app.innerHTML = `
-
-      <div class="word-card">
-
-        <div class="word-picture">
-          🎓
-        </div>
-
-        <h2>
-          Grammar Complete!
-        </h2>
-
-        <p>
-          Great work! You completed
-          the grammar lesson.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showGrammar()">
-
-          Practice Again
-
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  renderGrammar();
-
-}
-
-
-function showGrammar() {
-
-  showPage("grammar");
-
-}
-
-
-// ======================================
-// GAMES
-// ======================================
-
-const gameQuestions = [
-
-  {
-    image: "🐱",
-    answer: "Cat",
-    options: [
-      "Cat",
-      "Dog",
-      "Fish",
-      "Bird"
-    ]
-  },
-
-  {
-    image: "🍎",
-    answer: "Apple",
-    options: [
-      "Apple",
-      "Book",
-      "Car",
-      "Tree"
-    ]
-  },
-
-  {
-    image: "🐶",
-    answer: "Dog",
-    options: [
-      "Cat",
-      "Dog",
-      "Fish",
-      "Horse"
-    ]
-  },
-
-  {
-    image: "☀️",
-    answer: "Sun",
-    options: [
-      "Moon",
-      "Sun",
-      "Cloud",
-      "Star"
-    ]
-  },
-
-  {
-    image: "📚",
-    answer: "Book",
-    options: [
-      "Book",
-      "Car",
-      "House",
-      "Apple"
-    ]
-  }
-
-];
-
-
-function showGames() {
-  showPage("games");
-}
-
-
-function newGame() {
-
-  const picture =
-    document.getElementById(
-      "game-picture"
-    );
-
-  const options =
-    document.getElementById(
-      "game-options"
-    );
-
-  const result =
-    document.getElementById(
-      "game-result"
-    );
-
-  const next =
-    document.getElementById(
-      "next-game"
-    );
-
-
-  if (!picture || !options) return;
-
-
-  const item =
-    gameQuestions[currentGame];
-
-
-  picture.textContent =
-    item.image;
-
-
-  options.innerHTML =
-    item.options.map(option => `
-
-      <button
-        class="option"
-        onclick="checkGame('${option}')">
-
-        ${option}
-
-      </button>
-
-    `).join("");
-
-
-  if (result) {
-    result.textContent = "";
-    result.className = "quiz-result";
-  }
-
-
-  if (next) {
-    next.hidden = true;
-  }
-
-}
-
-
-function checkGame(answer) {
-
-  const correct =
-    gameQuestions[currentGame].answer;
-
-
-  const buttons =
-    document.querySelectorAll(
-      "#game-options .option"
-    );
-
-
-  buttons.forEach(button => {
-
-    button.disabled = true;
-
-
-    if (
-      button.textContent.trim()
-      === correct
-    ) {
-
-      button.classList.add("correct");
-
-    }
-
-  });
-
-
-  gamesPlayed++;
-
-
-  if (answer === correct) {
-
-    xp += 10;
-    correctAnswers++;
-
-    showFeedback(
-      "game-result",
-      "🎉 Great job! +10 XP",
-      "success"
-    );
-
-    updateXP();
-
-  } else {
-
-    buttons.forEach(button => {
-
-      if (
-        button.textContent.trim()
-        === answer
-      ) {
-
-        button.classList.add("wrong");
-
-      }
-
-    });
-
-
-    showFeedback(
-      "game-result",
-      "😊 Good try! Keep learning!",
-      "error"
-    );
-
-  }
-
-
-  const next =
-    document.getElementById(
-      "next-game"
-    );
-
-  if (next) {
-    next.hidden = false;
-  }
-
-
-  saveData();
-
-}
-
-
-function showNextGame() {
-
-  currentGame++;
-
-  if (
-    currentGame >= gameQuestions.length
-  ) {
-
-    currentGame = 0;
-
-    const app = getApp();
-
-    app.innerHTML = `
-
-      <div class="word-card">
-
-        <div class="word-picture">
-          🏆
-        </div>
-
-        <h2>
-          Amazing!
-        </h2>
-
-        <p>
-          You completed the game!
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showGames()">
-
-          Play Again
-
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-  newGame();
-
-}
-
-
-// HTMLdagi tugma newGame() deb chaqiradi.
-// Shu sabab keyingi savol uchun alohida funksiya:
-
-function nextGame() {
-  showNextGame();
-}
-
-
-// ======================================
-// LESSONS
-// ======================================
-
-function showLessons() {
-
-  const app = getApp();
-
-  app.innerHTML = `
-
-    <div class="section-title">
-
-      <h2>
-        📖 Lessons
-      </h2>
-
-      <p>
-        Learn English step by step.
-      </p>
-
-    </div>
-
-
-    <div class="cards">
-
-
-      <div class="card">
-
-        <div class="picture">
-          🔤
-        </div>
-
-        <h3>
-          Alphabet
-        </h3>
-
-        <p>
-          Learn the English alphabet.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showLessonMessage('🔤 Alphabet', 'A, B, C, D... Let’s learn the English alphabet!')">
-
-          Open
-
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="picture">
-          🔢
-        </div>
-
-        <h3>
-          Numbers
-        </h3>
-
-        <p>
-          Learn numbers from 1 to 20.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showLessonMessage('🔢 Numbers', 'One, two, three... Let’s learn English numbers!')">
-
-          Open
-
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="picture">
-          🎨
-        </div>
-
-        <h3>
-          Colors
-        </h3>
-
-        <p>
-          Learn basic English colors.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showLessonMessage('🎨 Colors', 'Red, blue, green, yellow and more!')">
-
-          Open
-
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="picture">
-          🐶
-        </div>
-
-        <h3>
-          Animals
-        </h3>
-
-        <p>
-          Learn animal names in English.
-        </p>
-
-        <button
-          class="primary-btn"
-          onclick="showVocabulary()">
-
-          Open
-
-        </button>
-
-      </div>
-
-
-    </div>
-
-  `;
-
-}
-
-
-function showLessonMessage(title, text) {
-
-  const app = getApp();
-
-  app.innerHTML = `
-
-    <div class="word-card">
-
-      <div class="word-picture">
-        📖
-      </div>
-
-      <h2>
-        ${title}
-      </h2>
-
-      <p>
-        ${text}
-      </p>
-
-      <button
-        class="primary-btn"
-        onclick="showLessons()">
-
-        ← Back to Lessons
-
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-// ======================================
-// STORIES
-// ======================================
-
-function readStory() {
-
-  const text =
-    "It is a beautiful morning. " +
-    "The sun is shining. " +
-    "A little bird is in the tree. " +
-    "The bird sings a happy song.";
-
-  speak(text);
-
-}
-
-
-// ======================================
-// DAILY CHALLENGE
-// ======================================
-
-function startDailyChallenge() {
-
-  currentVocabulary = 0;
-
-  showVocabulary();
-
-}
-
-
-// ======================================
-// PROGRESS
-// ======================================
-
-function updateProgressPage() {
-
-  const xpElement =
-    document.getElementById("xp");
-
-  if (xpElement) {
-    xpElement.textContent = xp;
-  }
-
-
-  const words =
-    document.getElementById(
-      "words-count"
-    );
-
-  const lessons =
-    document.getElementById(
-      "lessons-count"
-    );
-
-  const games =
-    document.getElementById(
-      "games-count"
-    );
-
-  const streakElement =
-    document.getElementById(
-      "streak-count"
-    );
-
-  const level =
-    document.getElementById(
-      "level"
-    );
-
-
-  if (words) {
-    words.textContent =
-      wordsLearned;
-  }
-
-  if (lessons) {
-    lessons.textContent =
-      lessonsCompleted;
-  }
-
-  if (games) {
-    games.textContent =
-      gamesPlayed;
-  }
-
-  if (streakElement) {
-    streakElement.textContent =
-      streak;
-  }
-
-  if (level) {
-
-    level.textContent =
-      Math.max(
-        1,
-        Math.floor(xp / 100) + 1
-      );
-
-  }
-
-}
-
-
-function showProgress() {
-
-  showPage("progress");
-
-  updateProgressPage();
-
-}
-
-
-// ======================================
-// INITIALIZE
-// ======================================
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    updateXP();
-
-    showPage("home");
-
-  }
-);
