@@ -178,7 +178,8 @@ function renderHome(){
 
 function openCategory(id){
   if(id === 'quiz'){ startQuiz(); return; }
-  navigateTo(`cat-${id}`);
+  const opener = CATEGORY_OPENERS[id];
+  if(opener) opener();
 }
 
 /* ---------------- KATEGORIYA SAHIFALARI ---------------- */
@@ -418,6 +419,21 @@ const natureSection     = makeEmojiSection('nature', 'Tabiat', NATURE);
 const transportSection  = makeEmojiSection('transport', 'Transport', TRANSPORT);
 
 /* ---------------- NAVIGATE ROUTER ---------------- */
+
+/* Bosh sahifadagi kartochka bosilganda tegishli bo'limni ochadigan funksiyalar.
+   Kalit — CATEGORIES ro'yxatidagi category.id bilan bir xil. */
+const CATEGORY_OPENERS = {
+  letters: openLettersList,
+  numbers: openNumbersList,
+  colors: openColorsList,
+  shapes: openShapesList,
+  body: openBodyList,
+  time: openTimeList,
+  animals: () => animalsSection.openList(),
+  fruits: () => fruitsSection.openList(),
+  nature: () => natureSection.openList(),
+  transport: () => transportSection.openList()
+};
 
 function navigateTo(viewId, isBack=false){
   const openers = {
