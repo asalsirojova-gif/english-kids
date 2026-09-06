@@ -437,7 +437,7 @@ const CATEGORY_OPENERS = {
 
 function navigateTo(viewId, isBack=false){
   const openers = {
-    home: renderHome,
+    home: () => { renderHome(); showView('home'); },
     'cat-letters': openLettersList,
     'cat-numbers': openNumbersList,
     'cat-colors': openColorsList,
@@ -448,7 +448,7 @@ function navigateTo(viewId, isBack=false){
     'cat-fruits': () => fruitsSection.openList(),
     'cat-nature': () => natureSection.openList(),
     'cat-transport': () => transportSection.openList(),
-    ranking: renderRanking
+    ranking: () => { renderRanking(); showView('ranking'); }
   };
   if(isBack && openers[viewId]){
     openers[viewId]();
