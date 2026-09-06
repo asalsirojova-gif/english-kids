@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Bolajonlar — O‘ynab o‘rganamiz!</title>
+<meta name="description" content="Bolalar uchun to‘qilgan ip uslubidagi ta’limiy ilova">
+<meta name="theme-color" content="#F4A6C1">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="app-header">
+    <button id="back-btn" class="back-btn" aria-label="Orqaga">←</button>
+    <img class="logo-badge" src="assets/icons/logo.svg" alt="Bolajonlar logotipi">
+    <div class="brand-text">
+      <h1 id="screen-title">Bolajonlar</h1>
+      <p>O‘ynab o‘rganamiz!</p>
+    </div>
+  </header>
+
+  <main id="main-scroll" style="flex:1; overflow-y:auto; display:flex; flex-direction:column;">
+
+    <!-- BOSH SAHIFA -->
+    <section id="view-home" class="view">
+      <div id="home-grid" class="home-grid"></div>
+    </section>
+
+    <!-- HARFLAR -->
+    <section id="view-cat-letters" class="view">
+      <p class="helper-text">Harfni bosing va tinglang 🔊</p>
+      <div id="letters-grid"></div>
+    </section>
+    <section id="view-letter-detail-view" class="view">
+      <div id="letter-detail"></div>
+    </section>
+
+    <!-- SONLAR -->
+    <section id="view-cat-numbers" class="view">
+      <p class="helper-text">Sonni bosing va tinglang 🔊</p>
+      <div id="numbers-grid"></div>
+    </section>
+    <section id="view-number-detail-view" class="view">
+      <div id="number-detail"></div>
+    </section>
+
+    <!-- RANGLAR -->
+    <section id="view-cat-colors" class="view">
+      <p class="helper-text">Rangni bosing va nomini tinglang 🔊</p>
+      <div id="colors-grid"></div>
+    </section>
+    <section id="view-color-detail-view" class="view">
+      <div id="color-detail"></div>
+    </section>
+
+    <!-- GEOMETRIK SHAKLLAR -->
+    <section id="view-cat-shapes" class="view">
+      <p class="helper-text">Shaklni bosing va o‘rganing 🔺</p>
+      <div id="shapes-grid"></div>
+    </section>
+    <section id="view-shape-detail-view" class="view">
+      <div id="shape-detail"></div>
+    </section>
+
+    <!-- TANA A'ZOLARI -->
+    <section id="view-cat-body" class="view">
+      <p class="helper-text">Tana a’zosini bosing 🧸</p>
+      <div id="body-grid"></div>
+    </section>
+    <section id="view-body-detail-view" class="view">
+      <div id="body-detail"></div>
+    </section>
+
+    <!-- VAQT -->
+    <section id="view-cat-time" class="view">
+      <p class="helper-text">Soatni bosing va o‘rganing 🕐</p>
+      <div id="time-grid"></div>
+    </section>
+    <section id="view-clock-detail-view" class="view">
+      <div id="clock-detail"></div>
+    </section>
+
+    <!-- HAYVONLAR -->
+    <section id="view-cat-animals" class="view">
+      <p class="helper-text">Hayvonni bosing va tinglang 🔊</p>
+      <div id="animals-grid"></div>
+    </section>
+    <section id="view-animals-detail-view" class="view">
+      <div id="animals-detail"></div>
+    </section>
+
+    <!-- MEVALAR -->
+    <section id="view-cat-fruits" class="view">
+      <p class="helper-text">Mevani bosing va tinglang 🔊</p>
+      <div id="fruits-grid"></div>
+    </section>
+    <section id="view-fruits-detail-view" class="view">
+      <div id="fruits-detail"></div>
+    </section>
+
+    <!-- TABIAT -->
+    <section id="view-cat-nature" class="view">
+      <p class="helper-text">Tabiat hodisasini bosing 🌳</p>
+      <div id="nature-grid"></div>
+    </section>
+    <section id="view-nature-detail-view" class="view">
+      <div id="nature-detail"></div>
+    </section>
+
+    <!-- TRANSPORT -->
+    <section id="view-cat-transport" class="view">
+      <p class="helper-text">Transport turini bosing 🚗</p>
+      <div id="transport-grid"></div>
+    </section>
+    <section id="view-transport-detail-view" class="view">
+      <div id="transport-detail"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="view-quiz-run" class="view">
+      <div id="quiz-body"></div>
+    </section>
+    <section id="view-quiz-result" class="view">
+      <div id="quiz-result-body"></div>
+    </section>
+
+    <!-- REYTING -->
+    <section id="view-ranking" class="view">
+      <div id="ranking-body"></div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button id="nav-home" class="nav-btn"><span class="nav-emoji">🏠</span>Bosh sahifa</button>
+    <button id="nav-lessons" class="nav-btn"><span class="nav-emoji">📚</span>Darslar</button>
+    <button id="nav-quiz" class="nav-btn"><span class="nav-emoji">🧠</span>Quiz</button>
+    <button id="nav-ranking" class="nav-btn"><span class="nav-emoji">🏆</span>Reyting</button>
+  </nav>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

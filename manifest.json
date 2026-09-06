@@ -1,0 +1,20 @@
+{
+  "name": "Bolajonlar — O'ynab o'rganamiz!",
+  "short_name": "Bolajonlar",
+  "description": "Bolalar uchun to'qilgan ip uslubidagi ta'limiy ilova: harflar, sonlar, ranglar va boshqalar.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FFF7ED",
+  "theme_color": "#F4A6C1",
+  "lang": "uz",
+  "icons": [
+    {
+      "src": "assets/icons/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
