@@ -1,0 +1,21 @@
+<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <pattern id="naturep" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#DFF0DA"/>
+      <path d="M0 0 L0 10" stroke="#A9D89B" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M5 0 L5 10" stroke="#A9D89B" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    </pattern>
+    <filter id="soft-naturep" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5b3a29" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-naturep)">
+    <circle cx="70" cy="70" r="62" fill="url(#naturep)"/>
+    <circle cx="70" cy="70" r="62" fill="none" stroke="#5F9E52" stroke-width="7" stroke-dasharray="4 7" stroke-linecap="round"/>
+    <circle cx="70" cy="70" r="52" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  </g>
+  <g stroke="#3f6b36" stroke-width="3">
+      <circle cx="70" cy="52" r="24" fill="#8FCB80"/>
+      <rect x="62" y="72" width="16" height="28" rx="5" fill="#C79762" stroke="#8a6538"/>
+    </g>
+</svg>

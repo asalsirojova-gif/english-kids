@@ -1,0 +1,22 @@
+<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <pattern id="fruitsp" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#FBDADA"/>
+      <path d="M0 0 L0 10" stroke="#F0A0A0" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M5 0 L5 10" stroke="#F0A0A0" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    </pattern>
+    <filter id="soft-fruitsp" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5b3a29" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-fruitsp)">
+    <circle cx="70" cy="70" r="62" fill="url(#fruitsp)"/>
+    <circle cx="70" cy="70" r="62" fill="none" stroke="#D6635F" stroke-width="7" stroke-dasharray="4 7" stroke-linecap="round"/>
+    <circle cx="70" cy="70" r="52" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  </g>
+  <g stroke="#8f2f2c" stroke-width="3">
+      <path d="M70 56 c-16 -18 -42 -6 -38 16 c3 18 22 34 38 40 c16 -6 35 -22 38 -40 c4 -22 -22 -34 -38 -16 z" fill="#EE7E7E"/>
+    </g>
+    <path d="M70 56 q2 -14 14 -18" fill="none" stroke="#6b4a2b" stroke-width="4" stroke-linecap="round"/>
+    <path d="M76 42 q10 -6 16 0" fill="none" stroke="#5fa66b" stroke-width="4" stroke-linecap="round"/>
+</svg>

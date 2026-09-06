@@ -1,0 +1,21 @@
+<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <pattern id="bodyp" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#FFE3D1"/>
+      <path d="M0 0 L0 10" stroke="#F0B08A" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M5 0 L5 10" stroke="#F0B08A" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    </pattern>
+    <filter id="soft-bodyp" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5b3a29" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-bodyp)">
+    <circle cx="70" cy="70" r="62" fill="url(#bodyp)"/>
+    <circle cx="70" cy="70" r="62" fill="none" stroke="#D48750" stroke-width="7" stroke-dasharray="4 7" stroke-linecap="round"/>
+    <circle cx="70" cy="70" r="52" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  </g>
+  <g fill="none" stroke="#7a4423" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M70 40 v50 M70 60 h-20 M70 60 h20 M50 60 l-8 26 M90 60 l8 26 M70 90 l-10 26 M70 90 l10 26" fill="none"/>
+      <circle cx="70" cy="30" r="9" fill="#FFE3D1" stroke="#7a4423" stroke-width="5"/>
+    </g>
+</svg>

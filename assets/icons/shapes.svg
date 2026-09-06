@@ -1,0 +1,22 @@
+<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <pattern id="shapesp" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#DDEBFC"/>
+      <path d="M0 0 L0 10" stroke="#9FC7F0" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M5 0 L5 10" stroke="#9FC7F0" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    </pattern>
+    <filter id="soft-shapesp" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5b3a29" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g filter="url(#soft-shapesp)">
+    <circle cx="70" cy="70" r="62" fill="url(#shapesp)"/>
+    <circle cx="70" cy="70" r="62" fill="none" stroke="#5D9AD4" stroke-width="7" stroke-dasharray="4 7" stroke-linecap="round"/>
+    <circle cx="70" cy="70" r="52" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  </g>
+  <g stroke="#2c5480" stroke-width="4.5" stroke-linejoin="round">
+      <circle cx="52" cy="52" r="16" fill="#FBD3E0"/>
+      <rect x="72" y="70" width="30" height="30" rx="4" fill="#FDE7B8"/>
+      <path d="M50 100 l16 -28 l16 28 z" fill="#CDEBE6"/>
+    </g>
+</svg>
