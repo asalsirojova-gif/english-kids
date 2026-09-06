@@ -254,6 +254,47 @@ button{ font-family: inherit; }
 
 .clock-face-wrap{ display:flex; justify-content:center; margin: 6px 0 4px; }
 
+
+/* ---------- Detail pager ---------- */
+.detail-pager{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:16px;
+}
+.pager-btn{
+  border:none;
+  min-height:48px;
+  padding:11px 16px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:0.95rem;
+  cursor:pointer;
+  box-shadow:0 4px 0 var(--shadow);
+}
+.prev-btn{ background:var(--white-yarn); color:var(--ink); }
+.next-btn{ background:var(--mint-deep); color:#fff; margin-left:auto; }
+.done-btn{ background:var(--pink-deep); color:#fff; margin-left:auto; }
+.pager-spacer{ flex:1; }
+.pager-btn:active{ transform:translateY(3px); box-shadow:0 1px 0 var(--shadow); }
+
+/* ---------- PWA install button ---------- */
+.install-btn{
+  margin-left:auto;
+  border:none;
+  border-radius:999px;
+  padding:10px 13px;
+  background:var(--pink-deep);
+  color:#fff;
+  font-weight:800;
+  font-size:0.78rem;
+  box-shadow:0 3px 0 rgba(90,64,50,0.2);
+  cursor:pointer;
+  white-space:nowrap;
+}
+.install-btn:active{ transform:translateY(2px); box-shadow:0 1px 0 rgba(90,64,50,0.2); }
+
 /* ---------- Quiz ---------- */
 .quiz-progress{
   display:flex; align-items:center; justify-content:space-between;
@@ -421,4 +462,13 @@ button{ font-family: inherit; }
 
 @media (min-width: 540px){
   .app-shell{ border-left: 1px solid rgba(0,0,0,0.04); border-right: 1px solid rgba(0,0,0,0.04); }
+}
+
+@media (max-width: 390px){
+  .app-header{ gap:10px; padding-left:14px; padding-right:14px; }
+  .app-header .logo-badge{ width:48px; height:48px; }
+  .app-header .brand-text h1{ font-size:1.35rem; }
+  .install-btn{ padding:9px 10px; font-size:0.72rem; }
+  .detail-pager{ gap:8px; }
+  .pager-btn{ padding:10px 13px; font-size:0.9rem; }
 }

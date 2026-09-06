@@ -2,7 +2,7 @@
 /* Bolajonlar — Service Worker
    Ilovani internetsiz ishlatish uchun barcha fayllarni keshga saqlaydi. */
 
-const CACHE_NAME = 'bolajonlar-cache-v1';
+const CACHE_NAME = 'bolajonlar-cache-v3';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -44,16 +44,40 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-/* Cache-first strategiya: avval keshdan beradi, topilmasa tarmoqdan
-   oladi va keyingi safar uchun keshga qo'shadi. Tarmoq ham bo'lmasa,
-   ilova baribir ochilishi uchun index.html bilan javob beradi. */
+/* Ikkita strategiya:
+   1) Asosiy fayllar (HTML/CSS/JS) — "network-first": internet bo'lsa har doim
+      eng so'nggi versiyani oladi va keshni yangilaydi; internet bo'lmasa keshdan beradi.
+      Shu tufayli fayllar yangilanganda foydalanuvchi eski versiyada "qotib qolmaydi".
+   2) Qolgan hamma narsa (ikonkalar va h.k.) — "cache-first": tezroq va
+      internetni tejaydi, chunki ular kamdan-kam o'zgaradi. */
+const NETWORK_FIRST_FILES = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
+
+function isNetworkFirst(url){
+  return NETWORK_FIRST_FILES.some((path) => url.pathname.endsWith(path) || url.pathname === path);
+}
+
 self.addEventListener('fetch', (event) => {
   if(event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+
+  if(isNetworkFirst(url)){
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if(response && response.status === 200){
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if(cached) return cached;
-
       return fetch(event.request)
         .then((response) => {
           if(!response || response.status !== 200 || response.type !== 'basic'){

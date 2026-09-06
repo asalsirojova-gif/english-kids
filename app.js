@@ -217,6 +217,17 @@ function renderDetail(containerId, opts){
   wrap.appendChild(panel);
 }
 
+function addDetailPager(containerId, items, currentItem, openItem){
+  const wrap = document.getElementById(containerId);
+  const index = items.findIndex(item => item.id === currentItem.id);
+  if(index < 0 || items.length < 2) return;
+  const pager = el('div', { class: 'detail-pager' },
+    index > 0 ? el('button', { class: 'pager-btn prev-btn', onclick: () => openItem(items[index - 1]) }, '← Oldingisi') : el('span', { class: 'pager-spacer' }),
+    index < items.length - 1 ? el('button', { class: 'pager-btn next-btn', onclick: () => openItem(items[index + 1]) }, 'Keyingisi →') : el('button', { class: 'pager-btn done-btn', onclick: () => goBack() }, '✓ Yakunlash')
+  );
+  wrap.appendChild(pager);
+}
+
 /* ---- Harflar ---- */
 function openLettersList(){
   setTitle('Harflar');
@@ -233,6 +244,7 @@ function openLetterDetail(l){
     word: `${l.letter} — ${l.word}`,
     speech: `${l.letter}. ${l.word}`
   });
+  addDetailPager('letter-detail', LETTERS, l, openLetterDetail);
   navigateTo('letter-detail-view');
   speak(`${l.letter}. ${l.word}`);
 }
@@ -253,6 +265,7 @@ function openNumberDetail(n){
     word: n.word[0].toUpperCase() + n.word.slice(1),
     speech: n.word
   });
+  addDetailPager('number-detail', NUMBERS, n, openNumberDetail);
   navigateTo('number-detail-view');
   speak(n.word);
 }
@@ -284,6 +297,7 @@ function openColorDetail(c){
     el('button', { class: 'speak-btn', onclick: () => speak(c.name) }, '🔊 Tinglash')
   );
   wrap.appendChild(panel);
+  addDetailPager('color-detail', COLORS, c, openColorDetail);
   navigateTo('color-detail-view');
   speak(c.name);
 }
@@ -327,6 +341,7 @@ function openShapeDetail(s){
     el('button', { class: 'speak-btn', onclick: () => speak(s.name) }, '🔊 Tinglash')
   );
   wrap.appendChild(panel);
+  addDetailPager('shape-detail', SHAPES, s, openShapeDetail);
   navigateTo('shape-detail-view');
   speak(s.name);
 }
@@ -344,6 +359,7 @@ function openBodyList(){
 function openBodyDetail(b){
   setTitle(b.name);
   renderDetail('body-detail', { glyph: b.emoji, word: b.name, speech: b.name });
+  addDetailPager('body-detail', BODY_PARTS, b, openBodyDetail);
   navigateTo('body-detail-view');
   speak(b.name);
 }
@@ -390,6 +406,7 @@ function openClockDetail(c){
     el('button', { class: 'speak-btn', onclick: () => speak(`Soat ${c.label.replace(':00','')}`) }, '🔊 Tinglash')
   );
   wrap.appendChild(panel);
+  addDetailPager('clock-detail', CLOCKS, c, openClockDetail);
   navigateTo('clock-detail-view');
 }
 
@@ -408,6 +425,7 @@ function makeEmojiSection(key, title, data){
     openDetail(it){
       setTitle(it.name);
       renderDetail(`${key}-detail`, { glyph: it.emoji, word: it.name, speech: it.name });
+      addDetailPager(`${key}-detail`, data, it, this.openDetail);
       navigateTo(`${key}-detail-view`);
       speak(it.name);
     }
@@ -651,6 +669,37 @@ function renderRanking(){
   wrap.appendChild(rows);
 }
 
+
+/* ---------------- PWA O‘RNATISH ---------------- */
+let deferredInstallPrompt = null;
+
+function setupInstallPrompt(){
+  const installBtn = document.getElementById('install-btn');
+  if(!installBtn) return;
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    installBtn.hidden = false;
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if(!deferredInstallPrompt){
+      alert('Ilovani o‘rnatish uchun brauzer menyusidan “Bosh ekranga qo‘shish” yoki “Install app” tugmasini tanlang.');
+      return;
+    }
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installBtn.hidden = true;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    installBtn.hidden = true;
+  });
+}
+
 /* ---------------- INIT ---------------- */
 
 function initNav(){
@@ -664,6 +713,7 @@ function initNav(){
 function init(){
   renderHome();
   initNav();
+  setupInstallPrompt();
   showView('home', { silentHistory: true });
   state.history = ['home'];
 
